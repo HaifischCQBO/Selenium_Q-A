@@ -1,0 +1,48 @@
+//EJEMPLOS DE CSS SELECTOR Y XPATH
+
+https://vins-udemy.s3.amazonaws.com/docker/docker-book-flight.html
+
+CSS SELECTOR ABSOLUTO
+#register-form di> v:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(1) > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > input:nth-child(1)
+
+XPATH ABSOLUTO
+/html/body/form/div[1]/ul/li[4]/div/table/tbody/tr[4]/td/table/tbody/tr[2]/td[2]/input
+
+
+
+CSS SELECTOR DINAMICO
+
+div[name='firstName']
+
+XPATH DINAMICO
+
+//input[@name='firstName']
+
+
+EJEMPLO<span>
+<div id="logo" class='boton testing2'>
+    <img src="./logo.png" >
+    	<button class="boton testing"> </button>
+    </img>
+</div>
+</span>
+
+//ELEMENTOS ANIDADOS
+WebElement objeto1 = driver.findElement(By.id("logo"))
+WebElement objeto2 = objeto1.findElement(By.tagName("img"));
+WebElement objeto3 = objeto2.findElement(By.className("boton")
+
+
+
+CSS SELECTOR
+div#logo img
+
+XPATH
+
+//div[@id='logo']/img
+
+
+
+
+//proxima clase subir un archivo
+
