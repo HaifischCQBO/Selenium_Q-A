@@ -36,20 +36,20 @@ public class Tests extends Fixtures {
 
 	public void PruebaJunit() { // DECLARAR VARIABLE DE SISTEMA
 		// SE CREA UN OBJETO SELENIUM, QUE CONTIENE TODAS LAS UTILIDADES QUE NECESITAMOS
-
+		
 		// ejemplo de como se realiza un refresh/F5/Actualizacion a la pagina en cual
 		// nos encontramos
-		driver.navigate().refresh();
+		s.getDriver().navigate().refresh();
 		// funcion para obtener el titulo de la pagina actual
-		s.Imprimir(driver.getTitle());
+		s.Imprimir(s.getDriver().getTitle());
 		// funcion para obtener la actual URL de la pagina donde estamos
-		System.out.println(driver.getCurrentUrl());
+		System.out.println(s.getDriver().getCurrentUrl());
 		// funcion para obtener el codigo fuente de la pagina
 		// System.out.println(driver.getPageSource());
 
 		// Busqueda y almacenamiento de elemento webdriver dentro de una variable para
 		// ser trabajada
-		s.ClickBy(By.name("country"));
+		s.Click(By.name("country"));
 
 		// llamada de objeto selenium, a su metodo printElementInfo()
 		s.printElementInfo(elemento);
@@ -59,83 +59,72 @@ public class Tests extends Fixtures {
 		// correcto: ");
 		// Assert.assertNotEquals(driver.getTitle(), "Google", "El mensaje de la pagina
 		// no es diferente: ");
-
 	}
-	
-	
+
 	public void AlertTest() {
-		
-		try {
-			
-		Alert a = driver.switchTo().alert();
-		
-		a.accept();
-		a.dismiss();
-		
-		}catch(NoAlertPresentException nape) {
-			s.Imprimir(nape.getCause().toString());
-			
-		}
-		
-		
-		
-	}
-	@Test
-	public void Testing() {
-		
-		//driver.findElement(By.xpath("//input[name='firstName'],input[maxleght='20']")).click();
-		driver.findElement(By.xpath("//input[name='firstName'][maxleght='20']")).click();
 
-		
+		try {
+
+			Alert a = s.getDriver().switchTo().alert();
+
+			a.accept();
+			a.dismiss();
+
+		} catch (NoAlertPresentException nape) {
+			s.Imprimir(nape.getCause().toString());
+
+		}
+
 	}
-	
+
+	public void Testing() {
+
+		// driver.findElement(By.xpath("//input[name='firstName'],input[maxleght='20']")).click();
+		s.getDriver().findElement(By.xpath("//input[name='firstName'][maxleght='20']")).click();
+
+	}
+
 	public void ActionChains() {
 
-		//driver.get("https://pruebas-de-test.webnode.es/");
-		Actions action = new Actions(driver);
+		// driver.get("https://pruebas-de-test.webnode.es/");
+		Actions action = new Actions(s.getDriver());
 
-		/*action.click(driver.findElement(By.id("sign-on")))
-		.click(driver.findElement(By.tagName("REGISTER")))
-		.click(driver.findElement(By.tagName("SUPPORT")))
-		.click(driver.findElement(By.tagName("CONTACT"))).build().perform();*/
-		
-		/*action
-		.moveToElement(driver.findElement(By.linkText("Tienda")))		
-		.build().perform();
-		s.takeSnapShot(driver);*/
-		
-		
-		
-		WebElement Elemento = driver.findElement(By.name("firstName"));
-		
-		
-		action
-		.keyDown(Keys.SHIFT).sendKeys(Elemento,Keys.chord("v","i","c"))
-		.pause(5000)
-		.keyUp(Keys.SHIFT).sendKeys(Elemento,Keys.chord("t","o","r"))
-		.build().perform();
-		
+		/*
+		 * action.click(driver.findElement(By.id("sign-on")))
+		 * .click(driver.findElement(By.tagName("REGISTER")))
+		 * .click(driver.findElement(By.tagName("SUPPORT")))
+		 * .click(driver.findElement(By.tagName("CONTACT"))).build().perform();
+		 */
+
+		/*
+		 * action .moveToElement(driver.findElement(By.linkText("Tienda")))
+		 * .build().perform(); s.takeSnapShot(driver);
+		 */
+
+		WebElement Elemento =s.obtenerElemento(By.name("firstName"));
+
+		action.keyDown(Keys.SHIFT).sendKeys(Elemento, Keys.chord("v", "i", "c")).pause(5000).keyUp(Keys.SHIFT)
+				.sendKeys(Elemento, Keys.chord("t", "o", "r")).build().perform();
+
 		s.Pausa(10);
 	}
-	
-	
+
 	public void GetCookies() {
-		
-		s.Imprimir(driver.manage().getCookies().toString());
-		
+
+		s.Imprimir(s.getDriver().manage().getCookies().toString());
+
 		Cookie ck = new Cookie("Selenium", "id255458778784");
-		driver.manage().addCookie(ck);
-		
-		s.Imprimir(driver.manage().getCookies().toString());
+		s.getDriver().manage().addCookie(ck);
+
+		s.Imprimir(s.getDriver().manage().getCookies().toString());
 
 	}
-	
-	
+
 	public void PasajeAvion() { // DECLARAR VARIABLE DE SISTEMA
 
 		// SE CREA UN OBJETO SELENIUM, QUE CONTIENE TODAS LAS UTILIDADES QUE NECESITAMOS
 
-		List<WebElement> campos_rellenables = driver.findElements(By.tagName("input"));
+		List<WebElement> campos_rellenables = s.ObtenerLista(By.tagName("input"));
 
 		s.Imprimir("Se encontraron :" + String.valueOf(campos_rellenables.size()) + " Correspondiente a el tag input");
 
@@ -161,7 +150,7 @@ public class Tests extends Fixtures {
 		}
 
 		// MEJOR METODO
-		Select lista_paises = new Select(driver.findElement(By.name("country")));
+		Select lista_paises = new Select(s.obtenerElemento(By.name("country")));
 
 		Random r = new Random();
 
@@ -179,31 +168,29 @@ public class Tests extends Fixtures {
 		// WebElement lista_paises = driver.findElement(By.name("country"));
 		// lista_paises.sendKeys("CHILE");
 
-		String Ventana_pasajes = driver.getWindowHandle();
+		String Ventana_pasajes = s.getDriver().getWindowHandle();
 
 		s.Imprimir(Ventana_pasajes);
 
 		// javascript executor
-		elemento = driver.findElement(By.name("register"));
-		JavascriptExecutor js = (JavascriptExecutor) driver;
+		elemento = s.obtenerElemento(By.name("register"));
+		JavascriptExecutor js = (JavascriptExecutor) s.getDriver();
 		js.executeScript("window.open(arguments[0], '_blank');", "https://www.google.com");
 
 		// MANEJO DE VENTANAS
-		for (String Ventana : driver.getWindowHandles()) {
-			
-			
-			
-			driver.switchTo().window(Ventana.toString());
+		for (String Ventana : s.getDriver().getWindowHandles()) {
+
+			s.getDriver().switchTo().window(Ventana.toString());
 		}
-	
-		s.Imprimir(driver.getTitle());
-		s.Imprimir(driver.getWindowHandle());
 
-		driver.close();
+		s.Imprimir(s.getDriver().getTitle());
+		s.Imprimir(s.getDriver().getWindowHandle());
 
-		driver.switchTo().window(Ventana_pasajes);
-		
-		s.Imprimir(driver.getTitle());
+		s.getDriver().close();
+
+		s.getDriver().switchTo().window(Ventana_pasajes);
+
+		s.Imprimir(s.getDriver().getTitle());
 
 		long ts = System.currentTimeMillis();
 		Date localTime = new Date(ts);
@@ -214,35 +201,32 @@ public class Tests extends Fixtures {
 		System.out.println(date.toString());
 		js.executeScript("arguments[0].click();", elemento);
 
-		s.Imprimir(driver.getWindowHandle());
+		s.Imprimir(s.getDriver().getWindowHandle());
 
 	}
 
-
 	public void handleIframe() {
 
-		driver.navigate().to("https://apps.tiny.cloud/products/cloud-essential/");
+		s.getDriver().navigate().to("https://apps.tiny.cloud/products/cloud-essential/");
 
 		// s.Imprimir(driver.findElement(By.id("tinymce")).getText());
 
-		s.Imprimir(driver.getCurrentUrl());
-		
-		WebDriverWait wait = new WebDriverWait(driver, 60);
-		
-		
-		
+		s.Imprimir(s.getDriver().getCurrentUrl());
+
+		WebDriverWait wait = new WebDriverWait(s.getDriver(), 60);
+
 		// ENTRO AL IFRAME 1
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("cp_embed_1")));
-		
+
 		// entrar en el iframe 1-1
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("mce_0_ifr"));
 		// IMPRIMIMOS BODY
-		s.Imprimir(driver.findElement(By.id("tinymce")).getText());
+		s.Imprimir(s.getDriver().findElement(By.id("tinymce")).getText());
 
 		// SALGO DEL IFRAME 1-1
-		driver.switchTo().parentFrame();
+		s.getDriver().switchTo().parentFrame();
 		// SALGO DEL IFRAME 1
-		driver.switchTo().parentFrame();
+		s.getDriver().switchTo().parentFrame();
 
 		// ------------------
 		// DEFAULT CONTENT
@@ -254,10 +238,10 @@ public class Tests extends Fixtures {
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(0));
 		// IMPRIMIMOS BODY
 
-		s.Imprimir(driver.findElement(By.id("tinymce")).getText());
+		s.Imprimir(s.getDriver().findElement(By.id("tinymce")).getText());
 
 		// SALGO DEL IFRAME
-		driver.switchTo().defaultContent();
+		s.getDriver().switchTo().defaultContent();
 
 		// ------------------
 		// DEFAULT CONTENT
@@ -270,10 +254,8 @@ public class Tests extends Fixtures {
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("mce_0_ifr"));
 		// IMPRIMIMOS BODY
 
-		s.Imprimir(driver.findElement(By.id("tinymce")).getText());
+		s.Imprimir(s.getDriver().findElement(By.id("tinymce")).getText());
 
-		
-		
 	}
 
 }
