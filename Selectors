@@ -27,6 +27,8 @@ EJEMPLO<span>
 </div>
 </span>
 
+
+
 //ELEMENTOS ANIDADOS
 WebElement objeto1 = driver.findElement(By.id("logo"))
 WebElement objeto2 = objeto1.findElement(By.tagName("img"));
@@ -45,4 +47,12 @@ XPATH
 
 
 //proxima clase subir un archivo
+
+<input id='archivo' type ="file">
+
+driver.findElement(By.id("archivo")).sendKeys("C:\Users\victo\Documents\GitHub\Selenium_Q-A\pom.xml");
+
+
+alert("asd")
+
 
